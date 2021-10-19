@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import MoviesTable from "./moviesTable";
 import Pagination from "./common/pagination";
 import ListGroup from "./common/listGroup";
-import SearchBox from "./common/searchBox";
+import SearchBox from "./searchBox";
 import { getMovies, deleteMovie } from "../services/movieService";
 import { getGenres } from "../services/genreService";
 import { paginate } from "../utils/paginate";
@@ -94,18 +94,18 @@ class Movies extends Component {
   };
 
   render() {
-    if (this.state.movies.length === 0)
-      return <p>There are no movies in the database.</p>;
+    const { length: count } = this.state.movies;
+    const { pageSize, currentPage, sortColumn, searchQuery } = this.state;
 
-    const { pageSize, currentPage, sortColumn, searchQuery, genres } =
-      this.state;
+    if (count === 0) return <p>There are no movies in the database.</p>;
+
     const { totalCount, data: movies } = this.getPagedData();
 
     return (
       <div className="row">
         <div className="col-3">
           <ListGroup
-            items={genres}
+            items={this.state.genres}
             selectedItem={this.state.selectedGenre}
             onItemSelect={this.handleGenreSelect}
           />
