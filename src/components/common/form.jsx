@@ -48,17 +48,11 @@ class Form extends Component {
     this.setState({ data, errors });
   };
 
-  renderInput(name, label, type = "text") {
-    const { data, errors } = this.state;
+  renderButton(label) {
     return (
-      <Input
-        type={type}
-        name={name}
-        value={data[name]}
-        label={label}
-        onChange={this.handleChange}
-        error={errors[name]}
-      />
+      <button disabled={this.validate()} className="btn btn-primary">
+        {label}
+      </button>
     );
   }
 
@@ -77,11 +71,18 @@ class Form extends Component {
     );
   }
 
-  renderButton(label) {
+  renderInput(name, label, type = "text") {
+    const { data, errors } = this.state;
+
     return (
-      <button disabled={this.validate()} className="btn btn-primary">
-        {label}
-      </button>
+      <Input
+        type={type}
+        name={name}
+        value={data[name]}
+        label={label}
+        onChange={this.handleChange}
+        error={errors[name]}
+      />
     );
   }
 }
